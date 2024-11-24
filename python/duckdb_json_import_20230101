@@ -1,0 +1,1 @@
+file_name,unix_timestamp,loop_start,loop_end,runtime,total_run_time_seconds,relation_size,table_size,index_size,rows_inserted,rows_per_second,errors
