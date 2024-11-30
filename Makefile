@@ -23,5 +23,8 @@ tools:
 	--net mssql_network \
 	mcr.microsoft.com/mssql-tools
 
+psql:
+	docker exec -it postgres_container psql -U postgres -d duckdb_test
+
 .PHONY: start stop logs bash cli tools
 

@@ -1,14 +1,30 @@
 services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: duckdb_test
+    ports:
+      - "5432:5432"
+    volumes:
+      - sample_postgres_data:/var/lib/postgresql/data
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./data:/data
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    networks:
+      - mssql_network
 
   mssql:
     container_name: mssql-db
     hostname: mssql-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'TeST@+$-'
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "TeST@+$-"
       MSSQL_DATA_DIR: /var/opt/mssql/data
-      MSSQL_PID: 'Developer'
+      MSSQL_PID: "Developer"
       MSSQL_TCP_PORT: 1433
     ports:
       - "1433:1433"
@@ -23,9 +39,10 @@ services:
 volumes:
   mssql_volume:
     name: mssql_volume
+  sample_postgres_data:
+    name: sample_postgres_data
 
 networks:
   mssql_network:
     driver: bridge
     name: mssql_network
-
