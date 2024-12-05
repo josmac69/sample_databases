@@ -1,8 +1,8 @@
 start:
-	docker compose up -d
+	docker compose up -d $(SERVICE)
 
 stop:
-	docker compose down
+	docker compose down $(SERVICE)
 
 logs:
 	docker logs mssql-db
